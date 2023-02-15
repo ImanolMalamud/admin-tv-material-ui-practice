@@ -10,14 +10,14 @@ export default function Mensajes() {
 
     useEffect(() => {
         axios
-            .get("https://admin-tv-material-ui-practice-production.up.railway.app/messages")
+            .get("localhost:3001/messages")
             .then((response) => setMessages(response.data))
             .catch((error) => console.log(error));
     }, []);
 
     const handleToggleIsActive = (id, isActive) => {
         axios
-            .put(`https://admin-tv-material-ui-practice-production.up.railway.app/messages/${id}`, { isActive: !isActive })
+            .put(`localhost:3001/messages/${id}`, { isActive: !isActive })
             .then(() => {
                 const updatedMessages = messages.map((message) =>
                     message.id === id ? { ...message, isActive: !isActive } : message
