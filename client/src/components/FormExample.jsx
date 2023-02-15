@@ -28,7 +28,7 @@ export default function FormExample() {
       chanel: textInput,
       data: selectedOption
     }
-    axios.post('http://localhost:3001/messages', body)
+    axios.post('https://admin-tv-material-ui-practice-production.up.railway.app/messages', body)
       .then((response) => {
         console.log(response.data);
       })
