@@ -10,14 +10,14 @@ export default function Mensajes() {
 
     useEffect(() => {
         axios
-            .get("localhost:3001/messages")
+            .get("https://admin-tv-material-ui-practice-production.up.railway.app/messages")
             .then((response) => setMessages(response.data))
             .catch((error) => console.log(error));
     }, []);
 
     const handleToggleIsActive = (id, isActive) => {
         axios
-            .put(`localhost:3001/messages/${id}`, { isActive: !isActive })
+            .put(`http://localhost:3001/messages/${id}`, { isActive: !isActive })
             .then(() => {
                 const updatedMessages = messages.map((message) =>
                     message.id === id ? { ...message, isActive: !isActive } : message
@@ -64,26 +64,17 @@ export default function Mensajes() {
     ];
 
     return (
-        <>
-            {messages[0]
-                ?
-                <div style={{ height: 400, width: "100%" }}>
-                    <DataGrid
-                        columns={columns}
-                        rows={messages}
-                        disableSelectionOnClick
-                        onCellClick={(params, event) => {
-                            if (params.field === "isActive") {
-                                handleToggleIsActive(params.row.id, params.row.isActive);
-                            }
-                        }}
-                    />
-                </div>
-                :
-                <>no hay mensajes todavia</>
-
-            }
-        </>
-
+        <div style={{ height: 400, width: "100%" }}>
+            <DataGrid
+                columns={columns}
+                rows={messages}
+                disableSelectionOnClick
+                onCellClick={(params, event) => {
+                    if (params.field === "isActive") {
+                        handleToggleIsActive(params.row.id, params.row.isActive);
+                    }
+                }}
+            />
+        </div>
     );
 }
