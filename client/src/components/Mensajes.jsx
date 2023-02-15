@@ -64,17 +64,26 @@ export default function Mensajes() {
     ];
 
     return (
-        <div style={{ height: 400, width: "100%" }}>
-            <DataGrid
-                columns={columns}
-                rows={messages}
-                disableSelectionOnClick
-                onCellClick={(params, event) => {
-                    if (params.field === "isActive") {
-                        handleToggleIsActive(params.row.id, params.row.isActive);
-                    }
-                }}
-            />
-        </div>
+        <>
+            {messages[0]
+                ?
+                <div style={{ height: 400, width: "100%" }}>
+                    <DataGrid
+                        columns={columns}
+                        rows={messages}
+                        disableSelectionOnClick
+                        onCellClick={(params, event) => {
+                            if (params.field === "isActive") {
+                                handleToggleIsActive(params.row.id, params.row.isActive);
+                            }
+                        }}
+                    />
+                </div>
+                :
+                <>no hay mensajes todavia</>
+
+            }
+        </>
+
     );
 }
