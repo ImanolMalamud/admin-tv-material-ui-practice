@@ -6,6 +6,7 @@ import { Box } from '@mui/material';
 import FormExample from './components/FormExample';
 import Mensajes from './components/Mensajes';
 
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -73,6 +74,8 @@ const styles = {
     backgroundColor: '#EF5350'
   }
 };
+
+
 
 function App() {
   return (
