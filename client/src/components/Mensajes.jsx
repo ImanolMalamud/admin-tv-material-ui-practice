@@ -17,7 +17,7 @@ export default function Mensajes() {
 
     const handleToggleIsActive = (id, isActive) => {
         axios
-            .put(`http://localhost:3001/messages/${id}`, { isActive: !isActive })
+            .put(`https://admin-tv-material-ui-practice-production.up.railway.app/messages/${id}`, { isActive: !isActive })
             .then(() => {
                 const updatedMessages = messages.map((message) =>
                     message.id === id ? { ...message, isActive: !isActive } : message
