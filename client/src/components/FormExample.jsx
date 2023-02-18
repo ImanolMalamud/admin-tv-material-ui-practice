@@ -22,13 +22,8 @@ export default function FormExample() {
     setTextInput(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const body = {
-      chanel: textInput,
-      data: selectedOption
-    }
-    axios.post('https://admin-tv-material-ui-practice-production.up.railway.app/messages', body)
+  const postMessages = async (body) => {
+    await axios.post('/messages', body)
       .then((response) => {
         console.log(response.data);
       })
@@ -38,6 +33,15 @@ export default function FormExample() {
       .catch((error) => {
         console.error(error);
       });
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const body = {
+      chanel: textInput,
+      data: selectedOption
+    }
+    postMessages(body)
   };
 
   return (
@@ -82,124 +86,3 @@ export default function FormExample() {
     </Box>
   );
 }
-
-
-
-
-
-
-
-
-
-
-// import React, { useState } from 'react';
-// import axios from 'axios';
-// import { Form, FormGroup, Label, Input, Button, Row, Col } from 'reactstrap';
-
-// export default function FormExample() {
-//   const [selectedOption, setSelectedOption] = useState('');
-//   const [textInput, setTextInput] = useState('');
-
-//   const handleOptionChange = (event) => {
-//     setSelectedOption(event.target.options[event.target.selectedIndex].text);
-//   };
-
-//   const handleTextChange = (event) => {
-//     setTextInput(event.target.value);
-//   };
-
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     const body = {
-//       chanel: textInput,
-//       data: selectedOption
-//     }
-//     axios.post('http://localhost:3001/messages', body)
-//       .then((response) => {
-//         console.log(response.data);
-//       })
-//       .then(() => {
-//         window.location.reload();
-//       })
-//       .catch((error) => {
-//         console.error(error);
-//       });
-//   };
-
-//   return (
-//     <Form onSubmit={handleSubmit}
-//       style={{
-//         backgroundColor: "lightgrey",
-//         padding: "20px",
-//         minWidth: "50%"
-//       }}
-//     >
-//       <Row xs={12}>
-//         <h1 style={{ textAlign: "center" }}>EJEMPLO</h1>
-//       </Row>
-//       <Row>
-//         <Col xs={8}>
-//           <FormGroup >
-//             <Label for="selectOption"
-//               style={{
-//                 width: "100%",
-//                 textAlign: "center"
-//               }}
-//             >
-//               Cual es el problema ?
-//             </Label>
-//             <Input type="select" name="selectOption" id="selectOption" value={selectedOption} onChange={handleOptionChange}>
-//               <option value="">-- Please select an option --</option>
-//               <option value="option1">A veces deja de funcionar.</option>
-//               <option value="option1">No funciona nunca.</option>
-//               <option value="option2">Se ve muy mal.</option>
-//               <option value="option3">El nombre del canal está mal puesto.</option>
-//             </Input>
-//           </FormGroup>
-
-//         </Col>
-//         <Col xs={2} >
-//           <FormGroup
-//             style={{
-//               width: "80%",
-//               display: "flex",
-//               flexDirection: "column",
-//               justifyContent: "center"
-//             }}>
-//             <Col>
-//               <Label for="textInput"
-//                 style={{
-//                   textAlign: "center"
-//                 }}
-//               >Canal:
-//               </Label>
-//             </Col>
-
-//             <Input type="text" name="textInput" id="textInput" value={textInput} onChange={handleTextChange}
-//               style={{
-//                 width: "50px"
-//               }}
-//             />
-//           </FormGroup>
-//         </Col>
-//         <Col xs={2}
-
-//         >
-//           <Button type="submit" color="primary"
-//             style={{
-//               height: "80%"
-//             }}
-//           >Submit</Button>
-//         </Col>
-//       </Row>
-
-
-
-//       <Row>
-
-
-//       </Row>
-
-//     </Form >
-//   );
-// }

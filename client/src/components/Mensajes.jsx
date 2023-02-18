@@ -8,16 +8,20 @@ import CancelIcon from '@mui/icons-material/Cancel';
 export default function Mensajes() {
     const [messages, setMessages] = useState([]);
 
-    useEffect(() => {
-        axios
-            .get("https://admin-tv-material-ui-practice-production.up.railway.app/messages")
+    const getMessages = async () => {
+        await axios
+            .get("/messages")
             .then((response) => setMessages(response.data))
             .catch((error) => console.log(error));
+    }
+
+    useEffect(() => {
+        getMessages()
     }, []);
 
-    const handleToggleIsActive = (id, isActive) => {
-        axios
-            .put(`https://admin-tv-material-ui-practice-production.up.railway.app/messages/${id}`, { isActive: !isActive })
+    const handleToggleIsActive = async (id, isActive) => {
+        await axios
+            .put(`/messages/${id}`, { isActive: !isActive })
             .then(() => {
                 const updatedMessages = messages.map((message) =>
                     message.id === id ? { ...message, isActive: !isActive } : message
@@ -65,7 +69,8 @@ export default function Mensajes() {
 
     return (
         <div style={{ height: 400, width: "100%" }}>
-            {messages[0]
+
+            {messages.length > 0 && Array.isArray(messages)
                 ?
                 <DataGrid
                     columns={columns}
@@ -78,7 +83,7 @@ export default function Mensajes() {
                     }}
                 />
                 :
-                <h1>no hay mensajes para mostrar</h1>
+                <h2>No hay mensajes para mostrar</h2>
             }
 
         </div>
